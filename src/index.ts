@@ -6,6 +6,7 @@ type POKEMON = {
   abilities: string[];
   image: string[];
   type: string[];
+  stats: number[];
 };
 
 const inputPokemon = document.querySelector<HTMLInputElement>('#name');
@@ -31,9 +32,11 @@ document.getElementById('submit')?.addEventListener('click', async (e) => {
       abilities: pokemon.abilities.map((a: { ability: { name: string } }) => a.ability.name),
       image: [pokemon.sprites.front_default, pokemon.sprites.front_shiny],
       type: pokemon.types.map((t: { type: { name: string } }) => t.type.name),
+      stats: pokemon.stats.map((s: {base_stat: {stat: number}})=>s.base_stat)
     };
     if (searchedPokemon) {
       console.log("Object set");
+      console.log(searchedPokemon.stats)
       localStorage.setItem('Pokemon', JSON.stringify(searchedPokemon));
       heading!.textContent = searchedPokemon.name.toUpperCase();
 
